@@ -1,0 +1,38 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<div class="container" style="margin-top: 20px;">
+    <a href="{% url 'delete' id=mymember.id %}">Delete</a>
+    <a href="{% url 'edit' id=mymember.id%}">Edit</a>
+
+
+<h1>{{ mymember.firstname }} {{ mymember.lastname }}</h1>
+<table class="table table-borderless table-hover">
+<tr>
+    <th class="col-2">Phone number +60</th>
+    <th class="col-2">Member since UTC+0</th>
+    <th class="col-5">Comments</th>
+    <th class="col-1">Anonymous</th>
+</tr>
+<tr>
+    {% if mymember.anonymous %}
+    <td class="col-2" style="text-align-last: center;"> <i> {{ mymember.firstname }} does not want to share phone number </i></td>
+    {% else %}
+    {% if mymember.phone %}
+    <td class="col-2">+60 {{ mymember.phone }}</td>
+    {% else %}
+    <td class="col-2" style="text-align-last: center;"><i> This user did not share phone number. </i> </td>
+    {% endif %}
+    {% endif %}
+    <td class="col-2">{{ mymember.created }}</td>
+    {% if mymember.description %}
+    <td class="col-5">{{ mymember.description }}</td>
+    {% else %}
+    <td class="col-5" style="text-align-last: center;"><i> This user did not make any comments. </i> </td>
+    {% endif %}
+    <td class="col-2">{{ mymember.anonymous }}</td>
+</tr>
+</table>
+<p>Back to <a href="/members">Members</a></p>
+</div>
+{% include 'contact_details.html' %} 
+{% endblock %}
